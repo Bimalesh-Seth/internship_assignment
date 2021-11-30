@@ -70,6 +70,10 @@ app.post("/create", async (req, res) => {
   }
 });
 
+app.use((req, res) => {
+  return res.send("404 Not found.");
+});
+
 app.use((error, req, res, next) => {
   if (error) {
     console.log(JSON.stringify(error));
