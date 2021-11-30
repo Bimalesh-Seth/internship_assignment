@@ -29,7 +29,7 @@ app.get("/:slug", async (req, res) => {
 
     const data = await request(endpoint, query, { id: slug }, headers);
     if (data.url_by_pk) {
-      return res.send(data.url_by_pk.url);
+      return res.send({ originUrl: data.url_by_pk.url });
     } else {
       return res.status(404).send("Invalid Request.");
     }
@@ -62,9 +62,7 @@ app.post("/create", async (req, res) => {
     );
     console.log(JSON.stringify(data));
 
-    return res.send(
-      "Shorten URL : " + host + "/" + data.insert_url.returning[0].id
-    );
+    return res.send({ shortUrl: host + "/" + data.insert_url.returning[0].id });
   } catch (err) {
     return res.status(400).send("Please provide a unique slug.");
   }
